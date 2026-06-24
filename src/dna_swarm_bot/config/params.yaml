@@ -1,0 +1,51 @@
+swarm_coordinator:
+  ros__parameters:
+    bot_id: 0
+    num_bots: 2
+    base_speed: 0.2
+    formation_spacing: 0.30
+    max_linear_speed: 0.4
+    max_angular_speed: 1.5
+    safety_distance: 0.25
+    wall_stop_distance: 0.50
+    overtake_slow_speed: 0.05
+    overtake_fast_speed: 0.35
+    overtake_side: 1.0
+    overtake_curve_duration: 1.5
+    overtake_merge_duration: 1.5
+    Kp_spacing: 1.5
+
+arduino_bridge:
+  ros__parameters:
+    serial_port: '/dev/ttyACM0'
+    baudrate: 115200
+    wheel_separation: 0.17
+    wheel_radius: 0.033
+    max_pwm: 255
+    max_linear_speed: 0.5
+
+imu_odometry:
+  ros__parameters:
+    bus: 1
+    publish_rate: 50.0
+    child_frame_id: 'base_footprint'
+    frame_id: 'odom'
+
+marker_detector:
+  ros__parameters:
+    marker_size: 0.05
+    camera_topic: 'camera/image_raw'
+    camera_info_topic: 'camera/camera_info'
+    bot_detection_topic: 'detected_bots'
+    wall_detection_topic: 'detected_walls'
+    bot_marker_ids: [0, 1]
+    wall_marker_ids: [10, 11, 12]
+
+sim_detector:
+  ros__parameters:
+    bot_id: 0
+    num_bots: 2
+    camera_fov: 1.047
+    max_range: 3.0
+    wall_marker_ids: [10, 11]
+    wall_positions: [3.0, 6.0]

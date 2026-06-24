@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="webcam" params="name prefix">
+    <link name="${name}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><box size="0.03 0.01 0.01"/></geometry>
+        <material name="black"/>
+      </visual>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="0.11 0 0.07" rpy="0 0 0"/>
+    </joint>
+    <link name="${name}_link_optical"/>
+    <joint name="${name}_optical_joint" type="fixed">
+      <parent link="${name}_link"/>
+      <child link="${name}_link_optical"/>
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+    </joint>
+    <gazebo reference="${name}_link">
+      <sensor type="camera" name="${prefix}_${name}">
+        <update_rate>30.0</update_rate>
+        <camera name="${prefix}_${name}">
+          <horizontal_fov>1.047</horizontal_fov>
+          <image><width>640</width><height>480</height><format>R8G8B8</format></image>
+          <clip><near>0.05</near><far>8</far></clip>
+          <noise><type>gaussian</type><mean>0.0</mean><stddev>0.007</stddev></noise>
+        </camera>
+        <plugin name="${prefix}_${name}_controller" filename="libgazebo_ros_camera.so">
+          <ros>
+            <remapping>image_raw:=${name}/image_raw</remapping>
+            <remapping>camera_info:=${name}/camera_info</remapping>
+            <namespace>/${prefix}</namespace>
+          </ros>
+          <camera_name>${name}</camera_name>
+          <frame_name>${name}_link_optical</frame_name>
+          <hack_baseline>0.07</hack_baseline>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

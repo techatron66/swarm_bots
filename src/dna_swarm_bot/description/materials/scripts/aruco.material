@@ -1,0 +1,35 @@
+material ArucoMarker/Bot0
+{
+  technique
+  {
+    pass
+    {
+      ambient 1.0 1.0 1.0 1.0
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 1.0 0.5
+      texture_unit
+      {
+        texture marker_bot_0.png
+        filtering trilinear
+      }
+    }
+  }
+}
+
+material ArucoMarker/Bot1
+{
+  technique
+  {
+    pass
+    {
+      ambient 1.0 1.0 1.0 1.0
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 1.0 0.5
+      texture_unit
+      {
+        texture marker_bot_1.png
+        filtering trilinear
+      }
+    }
+  }
+}
